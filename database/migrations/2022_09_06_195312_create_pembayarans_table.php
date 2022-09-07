@@ -20,7 +20,6 @@ class CreatePembayaransTable extends Migration
             $table->string('va_number', 100);
             $table->string('jenis_bank', 5);
             $table->string('pdf', 100);
-            $table->smallInteger('status');
             $table->timestamps();
         });
     }

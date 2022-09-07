@@ -19,6 +19,8 @@ class CreatePemasukansTable extends Migration
             $table->string('nama_donatur', 35);
             $table->string('catatan', 50);
             $table->decimal('jumlah_pemasukan');
+            $table->string('email', 30);
+            $table->smallInteger('status');
             $table->timestamps();
         });
     }
