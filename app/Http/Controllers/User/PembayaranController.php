@@ -16,7 +16,7 @@ class PembayaranController extends Controller
      */
     public function index(Program $program)
     {
-        return $program;
+        return view('user.pembayaran.donasi', compact('program'));
     }
 
 
