@@ -47,9 +47,7 @@ $("#submitdonasi").click(function (e) {
         },
         statusCode: {
             422: function (data) {
-                // console.log(data.responseJSON.errors);
                 let ul = document.createElement("ul");
-
                 $.each(data.responseJSON.errors, function (key, value) {
                     // Set errors on inputs
                     var li = document.createElement("li");
@@ -62,6 +60,14 @@ $("#submitdonasi").click(function (e) {
                     showConfirmButton: true,
                     title: "Pembayaran Gagal",
                     html: ul,
+                    confirmButtonText: "Oke",
+                });
+            },
+            404: function (data) {
+                Swal.fire({
+                    icon: "error",
+                    showConfirmButton: true,
+                    title: "Pembayaran Gagal Dilakukan",
                     confirmButtonText: "Oke",
                 });
             },

@@ -91,6 +91,17 @@
  <script src="/user/js/owl.carousel.min.js"></script>
  <script src="/user/js/main.js"></script>
  <script src="/user/js/myjs.js"></script>
+ <script type="text/javascript">
+     window.$crisp = [];
+     window.CRISP_WEBSITE_ID = "153afbeb-8b91-4d44-bb38-324bf337170c";
+     (function() {
+         d = document;
+         s = d.createElement("script");
+         s.src = "https://client.crisp.chat/l.js";
+         s.async = 1;
+         d.getElementsByTagName("head")[0].appendChild(s);
+     })();
+ </script>
 
 
  </body>

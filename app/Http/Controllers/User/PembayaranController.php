@@ -25,14 +25,17 @@ class PembayaranController extends Controller
 
     public function bayar(PembayaranRequest $request)
     {
+        if ($request->has('hidden_name'))  $request->nama_donatur = "Hamba Allah";
+
         $program = Program::select('nama_program', 'id_program')->where('id_program', $request->id_program)->get();
+
         if (!count($program)) {
             return response()->json([
                 'pesan' => 'Pembayaran gagal dilakukan'
             ], 404);
         }
 
-        $program = $program[0];
+        $program = $program->first();
 
         Config::$serverKey = env('MIDTRANS_SERVER_KEY');
         // Uncomment for production environment
@@ -77,10 +80,9 @@ class PembayaranController extends Controller
                 'status' => 200
             ];
         } catch (\Exception $e) {
-            return $e;
             return [
-                'token' => '',
-                'status' => 500
+                'pesan' => 'Pembayaran gagal dilakukan',
+                'status' => 404
             ];
         }
     }
