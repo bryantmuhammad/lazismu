@@ -34,3 +34,4 @@ route::resource('admin/kategori', KategoriController::class)->middleware(['permi
 route::resource('admin/program', ProgramController::class)->middleware(['permission:crud data master'])->except(['edit']);
 Route::get('program/{program}', [user::class, 'detail'])->name('program.detail');
 Route::get('/donasi/{program}', [PembayaranController::class, 'index'])->name('donasi');
+Route::post('/donasi/pembayaran', [PembayaranController::class, 'bayar']);

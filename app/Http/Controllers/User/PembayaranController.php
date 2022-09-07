@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PembayaranRequest;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use App\Models\Program;
+use Midtrans\Snap;
+use Midtrans\Config;
 
 class PembayaranController extends Controller
 {
@@ -19,6 +22,68 @@ class PembayaranController extends Controller
         return view('user.pembayaran.donasi', compact('program'));
     }
 
+
+    public function bayar(PembayaranRequest $request)
+    {
+        $program = Program::select('nama_program', 'id_program')->where('id_program', $request->id_program)->get();
+        if (!count($program)) {
+            return response()->json([
+                'pesan' => 'Pembayaran gagal dilakukan'
+            ], 404);
+        }
+
+        $program = $program[0];
+
+        Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+        // Uncomment for production environment
+        // Config::$isProduction = true;
+
+        // Uncomment to enable sanitization
+        // Config::$isSanitized = true;
+
+        // Uncomment to enable 3D-Secure
+        // Config::$is3ds = true;
+
+        // Optional
+        $item_details = [[
+            'id'        => $program->id_program,
+            'price'     => $request->jumlah_pemasukan,
+            'quantity'  => 1,
+            'name'      => substr($program->nama_program, 0, 15)
+        ]];
+        $transaction_details = array(
+            'order_id'      => rand(),
+            'gross_amount'  => $request->jumlah_pemasukan,
+        );
+
+        $customer_details = array(
+            'first_name'       => $request->nama_donatur,
+            'email'            => $request->email,
+
+        );
+        // Fill SNAP API parameter
+        $params = array(
+            'transaction_details'   => $transaction_details,
+            'customer_details'      => $customer_details,
+            'item_details'          => $item_details,
+        );
+
+
+        try {
+            // Get Snap Payment Page URL
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+            return [
+                'token' => $snapToken,
+                'status' => 200
+            ];
+        } catch (\Exception $e) {
+            return $e;
+            return [
+                'token' => '',
+                'status' => 500
+            ];
+        }
+    }
 
     /**
      * Show the form for creating a new resource.

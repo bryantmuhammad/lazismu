@@ -78,6 +78,9 @@
 
  <!-- Js Plugins -->
  <script src="/user/js/jquery-3.3.1.min.js"></script>
+ <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+     data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
  <script src="/user/js/bootstrap.min.js"></script>
  <script src="/user/js/jquery.nice-select.min.js"></script>
  <script src="/user/js/jquery.nicescroll.min.js"></script>
@@ -87,6 +90,9 @@
  <script src="/user/js/mixitup.min.js"></script>
  <script src="/user/js/owl.carousel.min.js"></script>
  <script src="/user/js/main.js"></script>
+ <script src="/user/js/myjs.js"></script>
+
+
  </body>
 
  </html>
