@@ -1,13 +1,16 @@
 <?php
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AuthController as authadmin;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\UserController as admin;
-use App\Http\Controllers\User\UserController as user;
-use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\ProgramController;
+use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\User\PembayaranController;
+use App\Http\Controllers\User\UserController as user;
+use App\Http\Controllers\Admin\UserController as admin;
+use App\Http\Controllers\Admin\AuthController as authadmin;
+use App\Models\Program;
+use App\Jobs\DonasiJob;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +38,16 @@ route::resource('admin/program', ProgramController::class)->middleware(['permiss
 Route::get('program/{program}', [user::class, 'detail'])->name('program.detail');
 Route::get('/donasi/{program}', [PembayaranController::class, 'index'])->name('donasi');
 Route::post('/donasi/pembayaran', [PembayaranController::class, 'bayar']);
+Route::get('/send-mail', function () {
+
+    $details = [
+        'nama_program' => Program::where('id_program', 1)->first()->nama_program,
+        'pemasukan' => 100000
+    ];
+
+    dispatch(new DonasiJob($details))->delay(now()->addSecond(20));
+    // return view('emails.myTestMail', $details);
+
+
+    dd("Email is Sent.");
+});

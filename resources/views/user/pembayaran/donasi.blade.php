@@ -43,7 +43,8 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Email<span>*</span></p>
-                                        <input type="text" class="is-invalid" name="email" value="{{ old('email') }}">
+                                        <input type="text" class="is-invalid" name="email" value="{{ old('email') }}"
+                                            placeholder="example@gmail.com">
                                         @error('email')
                                             <label id="name-error" class="error" for="name"
                                                 style="color:red;">{{ $message }}</label>

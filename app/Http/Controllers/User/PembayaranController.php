@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Program;
 use Midtrans\Snap;
 use Midtrans\Config;
+use Illuminate\Support\Facades\DB;
 
 class PembayaranController extends Controller
 {
@@ -17,6 +18,7 @@ class PembayaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Program $program)
     {
         return view('user.pembayaran.donasi', compact('program'));
@@ -26,6 +28,7 @@ class PembayaranController extends Controller
     public function bayar(PembayaranRequest $request)
     {
         if ($request->has('hidden_name'))  $request->nama_donatur = "Hamba Allah";
+        return $request;
 
         $program = Program::select('nama_program', 'id_program')->where('id_program', $request->id_program)->get();
 
@@ -36,18 +39,11 @@ class PembayaranController extends Controller
         }
 
         $program = $program->first();
+    }
 
+    private function snap($request, $program)
+    {
         Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-        // Uncomment for production environment
-        // Config::$isProduction = true;
-
-        // Uncomment to enable sanitization
-        // Config::$isSanitized = true;
-
-        // Uncomment to enable 3D-Secure
-        // Config::$is3ds = true;
-
-        // Optional
         $item_details = [[
             'id'        => $program->id_program,
             'price'     => $request->jumlah_pemasukan,
@@ -71,10 +67,9 @@ class PembayaranController extends Controller
             'item_details'          => $item_details,
         );
 
-
         try {
             // Get Snap Payment Page URL
-            $snapToken = \Midtrans\Snap::getSnapToken($params);
+            $snapToken = Snap::getSnapToken($params);
             return [
                 'token' => $snapToken,
                 'status' => 200

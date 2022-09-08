@@ -21,11 +21,13 @@ LAZISMU adalah lembaga zakat tingkat nasional yang berkhidmat dalam pemberdayaan
 ```powershell
 cp .env.example .env
 php artisan generate:key
+php artisan queue:table
 php artisan migrate:fresh --seed
 php artisan storage:link
 php artisan serve
 ```
 
-## Menggunakan Template
+## Web Ini Dibangun Menggunakan
 -  [Stisla](https://getstisla.com/).
+-  [Spatie Laravel](https://github.com/spatie/laravel-permission).
 -  [MaleFashion – Free Bootstrap 4 HTML5 eCommerce Website Template](https://themewagon.com/themes/free-bootstrap-4-html5-ecommerce-website-template-malefashion/).
