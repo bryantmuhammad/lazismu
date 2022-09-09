@@ -9,6 +9,5 @@ class Pembayaran extends Model
 {
     use HasFactory;
     protected $primaryKey   = 'id_pembayaran';
-    protected $fillable     = ['id_pembayaran', 'id_pemasukan', 'jenis_pembayaran', 'va_number', 'jenis_bank', 'pdf', 'status'];
-    public $incrementing    = false;
+    protected $fillable     = ['id_pemasukan', 'jenis_pembayaran', 'va_number', 'jenis_bank', 'pdf', 'status'];
 }

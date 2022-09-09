@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Str;
+use App\Models\Kategori;
 use Faker\Factory as Faker;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +22,15 @@ class DatabaseSeeder extends Seeder
 
     public function run()
     {
+        Kategori::create(
+            [
+                'nama_kategori' => 'Zakat'
+            ],
+            [
+                'nama_kategori' => 'Infaq'
+            ]
+        );
+
         $faker  = Faker::create('id_ID');
         // \App\Models\User::factory(10)->create();
 

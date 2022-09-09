@@ -17,6 +17,8 @@ LAZISMU adalah lembaga zakat tingkat nasional yang berkhidmat dalam pemberdayaan
 - Set FILESYSTEM_DRIVER=public di .env
 - Set MIDTRANS_SERVER_KEY=Your Key
 - Set MIDTRANS_CLIENT_KEY=Your Key
+- Set MAIL_SETTING 
+
 
 ```powershell
 cp .env.example .env

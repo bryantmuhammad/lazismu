@@ -35,9 +35,14 @@ Route::post('/admin/login', [authadmin::class, 'authenticate'])->name('admin.log
 route::resource('admin/user', admin::class)->middleware(['permission:crud data master'])->except(['edit']);
 route::resource('admin/kategori', KategoriController::class)->middleware(['permission:crud data master'])->except(['edit']);
 route::resource('admin/program', ProgramController::class)->middleware(['permission:crud data master'])->except(['edit']);
+route::resource('admin/program', ProgramController::class)->middleware(['permission:crud data master'])->except(['edit']);
+
+
+
 Route::get('program/{program}', [user::class, 'detail'])->name('program.detail');
 Route::get('/donasi/{program}', [PembayaranController::class, 'index'])->name('donasi');
 Route::post('/donasi/pembayaran', [PembayaranController::class, 'bayar']);
+Route::post('/donasi/pembayaran/simpan', [PembayaranController::class, 'store']);
 Route::get('/send-mail', function () {
 
     $details = [

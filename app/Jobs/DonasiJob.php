@@ -34,6 +34,6 @@ class DonasiJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to('bryantmuhammad00@gmail.com')->send(new myTestMail($this->details));
+        Mail::to($this->details['email'])->send(new myTestMail($this->details));
     }
 }

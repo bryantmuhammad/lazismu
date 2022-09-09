@@ -15,9 +15,13 @@ class CreatePengeluaransTable extends Migration
     {
         Schema::create('pengeluarans', function (Blueprint $table) {
             $table->bigIncrements('id_pengeluaran');
-            $table->foreignId('id_pemasukan')->references('id_pemasukan')->on('pemasukans')->onDelete('cascade');
+            $table->string('id_pemasukan', 10);
             $table->string('nama_pengeluaran', 40);
             $table->timestamps();
+        });
+
+        Schema::table('pengeluarans', function (Blueprint $table) {
+            $table->foreign('id_pemasukan')->references('id_pemasukan')->on('pemasukans')->onDelete('cascade');
         });
     }
 

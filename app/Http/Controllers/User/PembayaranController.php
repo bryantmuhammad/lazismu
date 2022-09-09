@@ -10,15 +10,12 @@ use App\Models\Program;
 use Midtrans\Snap;
 use Midtrans\Config;
 use Illuminate\Support\Facades\DB;
+use App\Models\Pemasukan;
+use Exception;
+use App\Jobs\DonasiJob;
 
 class PembayaranController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
     public function index(Program $program)
     {
         return view('user.pembayaran.donasi', compact('program'));
@@ -28,20 +25,42 @@ class PembayaranController extends Controller
     public function bayar(PembayaranRequest $request)
     {
         if ($request->has('hidden_name'))  $request->nama_donatur = "Hamba Allah";
-        return $request;
 
+        // If someone change id with inspect element
         $program = Program::select('nama_program', 'id_program')->where('id_program', $request->id_program)->get();
 
         if (!count($program)) {
+            // Return 404 if program not found
             return response()->json([
                 'pesan' => 'Pembayaran gagal dilakukan'
             ], 404);
         }
 
         $program = $program->first();
+
+        try {
+            DB::transaction(function () use ($request) {
+                Pemasukan::create([
+                    'id_program'        => $request->id_program,
+                    'nama_donatur'      => $request->nama_donatur,
+                    'catatan'           => $request->catatan,
+                    'jumlah_pemasukan'  => $request->jumlah_pemasukan,
+                    'email'             => $request->email,
+                    'status'            => 0
+                ]);
+            });
+        } catch (Exception $e) {
+            return response()->json([
+                'pesan' => 'Pembayaran gagal dilakukan'
+            ], 404);
+        }
+
+        $response =  $this->snap($request, $program);
+
+        return $response;
     }
 
-    private function snap($request, $program)
+    public function snap($request, $program)
     {
         Config::$serverKey = env('MIDTRANS_SERVER_KEY');
         $item_details = [[
@@ -68,29 +87,27 @@ class PembayaranController extends Controller
         );
 
         try {
+            // dispatch(new DonasiJob([
+            //     'email'     => $request->email,
+            //     'pemasukan' => $request->pemasukan,
+            //     'nama_program' => $program->nama_program
+            // ]));
             // Get Snap Payment Page URL
             $snapToken = Snap::getSnapToken($params);
-            return [
-                'token' => $snapToken,
+
+            return response()->json([
+                'token'  => $snapToken,
                 'status' => 200
-            ];
+            ], 200);
         } catch (\Exception $e) {
-            return [
-                'pesan' => 'Pembayaran gagal dilakukan',
+            return response()->json([
+                'pesan'  => 'Pembayaran gagal dilakukan',
                 'status' => 404
-            ];
+            ], 404);
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -100,7 +117,8 @@ class PembayaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $payment = json_decode($request->payment);
+        return $payment->order_id;
     }
 
     /**

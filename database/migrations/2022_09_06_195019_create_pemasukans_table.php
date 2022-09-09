@@ -14,7 +14,7 @@ class CreatePemasukansTable extends Migration
     public function up()
     {
         Schema::create('pemasukans', function (Blueprint $table) {
-            $table->bigIncrements('id_pemasukan');
+            $table->string('id_pemasukan', 10)->primary();
             $table->foreignId('id_program')->references('id_program')->on('programs')->onDelete('cascade');
             $table->string('nama_donatur', 35);
             $table->string('catatan', 50);
