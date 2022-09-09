@@ -22,7 +22,6 @@ class PembayaranController extends Controller
         return view('user.pembayaran.donasi', compact('program'));
     }
 
-
     public function bayar(PembayaranRequest $request)
     {
         if ($request->has('hidden_name'))  $request->nama_donatur = "Hamba Allah";
@@ -140,52 +139,16 @@ class PembayaranController extends Controller
         ]));
 
         return response()->json([
-            'pesan' => 'Donasi berhasil dilakukan'
+            'pesan'         => 'Donasi berhasil dilakukan',
+            'id_pemasukan'  => $payment->order_id
         ], 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Pembayaran  $pembayaran
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pembayaran $pembayaran)
+    public function caramembayar(Pemasukan $pemasukan)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pembayaran  $pembayaran
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pembayaran $pembayaran)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pembayaran  $pembayaran
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pembayaran $pembayaran)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Pembayaran  $pembayaran
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Pembayaran $pembayaran)
-    {
-        //
+        if ($pemasukan->status) return abort(404);
+        return view('user.invoice.invoice', [
+            'pemasukan' => $pemasukan->load('program', 'pembayaran')
+        ]);
     }
 }

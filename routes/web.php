@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\UserController as admin;
 use App\Http\Controllers\Admin\AuthController as authadmin;
 use App\Models\Program;
 use App\Jobs\DonasiJob;
+use App\Models\Pembayaran;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,7 @@ Route::get('program/{program}', [user::class, 'detail'])->name('program.detail')
 Route::get('/donasi/{program}', [PembayaranController::class, 'index'])->name('donasi');
 Route::post('/donasi/pembayaran', [PembayaranController::class, 'bayar']);
 Route::post('/donasi/pembayaran/simpan', [PembayaranController::class, 'store']);
+Route::get('/donasi/caramembayar/{pemasukan}', [PembayaranController::class, 'caramembayar']);
 Route::get('/send-mail', function () {
 
     $details = [

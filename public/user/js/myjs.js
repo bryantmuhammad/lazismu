@@ -83,7 +83,15 @@ function pembayaran(form) {
                 });
             },
             200: function (response) {
-                console.log(response);
+                Swal.fire({
+                    icon: "success",
+                    showConfirmButton: false,
+                    title: response.pesan,
+                    timer: 800,
+                }).then(function (e) {
+                    document.location.href =
+                        "/donasi/caramembayar/" + response.id_pemasukan;
+                });
             },
         },
     });
