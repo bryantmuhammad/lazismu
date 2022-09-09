@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Pemasukan;
 use Exception;
 use App\Jobs\DonasiJob;
+use Illuminate\Support\Str;
 
 class PembayaranController extends Controller
 {
@@ -37,10 +38,11 @@ class PembayaranController extends Controller
         }
 
         $program = $program->first();
-
+        $idPemasukan = Str::random(10);
         try {
-            DB::transaction(function () use ($request) {
+            DB::transaction(function () use ($request, $idPemasukan) {
                 Pemasukan::create([
+                    'id_pemasukan'      => $idPemasukan,
                     'id_program'        => $request->id_program,
                     'nama_donatur'      => $request->nama_donatur,
                     'catatan'           => $request->catatan,
@@ -55,12 +57,12 @@ class PembayaranController extends Controller
             ], 404);
         }
 
-        $response =  $this->snap($request, $program);
+        $response =  $this->snap($request, $program, $idPemasukan);
 
         return $response;
     }
 
-    public function snap($request, $program)
+    public function snap($request, $program, $idPemasukan)
     {
         Config::$serverKey = env('MIDTRANS_SERVER_KEY');
         $item_details = [[
@@ -70,10 +72,9 @@ class PembayaranController extends Controller
             'name'      => substr($program->nama_program, 0, 15)
         ]];
         $transaction_details = array(
-            'order_id'      => rand(),
+            'order_id'      => $idPemasukan,
             'gross_amount'  => $request->jumlah_pemasukan,
         );
-
         $customer_details = array(
             'first_name'       => $request->nama_donatur,
             'email'            => $request->email,
@@ -87,11 +88,7 @@ class PembayaranController extends Controller
         );
 
         try {
-            // dispatch(new DonasiJob([
-            //     'email'     => $request->email,
-            //     'pemasukan' => $request->pemasukan,
-            //     'nama_program' => $program->nama_program
-            // ]));
+
             // Get Snap Payment Page URL
             $snapToken = Snap::getSnapToken($params);
 
@@ -118,7 +115,33 @@ class PembayaranController extends Controller
     public function store(Request $request)
     {
         $payment = json_decode($request->payment);
-        return $payment->order_id;
+        try {
+            DB::transaction(function () use ($request, $payment) {
+                Pembayaran::create([
+                    'id_pemasukan'      => $payment->order_id,
+                    'jenis_pembayaran'  => $payment->payment_type,
+                    'va_number'         => $payment->va_numbers[0]->va_number,
+                    'jenis_bank'        => $payment->va_numbers[0]->bank,
+                    'pdf'               => $payment->pdf_url
+                ]);
+            });
+        } catch (\Exception $e) {
+            return response()->json([
+                'pesan' => 'Silahkan coba beberapa saat lagi'
+            ], 424);
+        }
+
+        $program = Program::select('nama_program', 'id_program')->where('id_program', $request->id_program)->first();
+        dispatch(new DonasiJob([
+            'email'         => $request->email,
+            'pemasukan'     => $request->jumlah_pemasukan,
+            'nama_program'  => $program->nama_program,
+            'link'          => $payment->pdf_url
+        ]));
+
+        return response()->json([
+            'pesan' => 'Donasi berhasil dilakukan'
+        ], 200);
     }
 
     /**

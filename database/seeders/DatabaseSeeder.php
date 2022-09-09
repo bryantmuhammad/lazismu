@@ -22,14 +22,8 @@ class DatabaseSeeder extends Seeder
 
     public function run()
     {
-        Kategori::create(
-            [
-                'nama_kategori' => 'Zakat'
-            ],
-            [
-                'nama_kategori' => 'Infaq'
-            ]
-        );
+        Kategori::create(['nama_kategori' => 'Zakat']);
+        Kategori::create(['nama_kategori' => 'Infaq']);
 
         $faker  = Faker::create('id_ID');
         // \App\Models\User::factory(10)->create();

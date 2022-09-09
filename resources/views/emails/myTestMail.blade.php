@@ -145,7 +145,7 @@
             <tr class="details">
                 <td>BRI</td>
 
-                <td><a href="google.com">Klik Disini</a></td>
+                <td><a href="{{ $details['link'] }}">Klik Disini</a></td>
             </tr>
 
             <tr class="heading">
