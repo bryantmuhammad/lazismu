@@ -23,7 +23,6 @@ LAZISMU adalah lembaga zakat tingkat nasional yang berkhidmat dalam pemberdayaan
 ```powershell
 cp .env.example .env
 php artisan generate:key
-php artisan queue:table
 php artisan migrate:fresh --seed
 php artisan storage:link
 php artisan serve
