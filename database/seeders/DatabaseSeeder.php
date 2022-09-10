@@ -31,7 +31,8 @@ class DatabaseSeeder extends Seeder
         $permissions = [
             'Admin' => [
                 'crud data master',
-                'lihat laporan'
+                'lihat laporan',
+                'transaksi'
             ],
             'Pemilik' => [
                 'lihat laporan'
@@ -52,7 +53,6 @@ class DatabaseSeeder extends Seeder
             $role = Role::create(['name' => $value]);
             if (isset($permissions[$role->name])) $role->givePermissionTo($permissions[$role->name]);
         }
-
 
         $user = User::create([
             'name'              => $faker->name(),

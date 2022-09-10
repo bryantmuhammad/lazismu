@@ -55,8 +55,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <span>Latest News</span>
-                        <h2>Fashion New Trends</h2>
+                        <span>Silahkan pilih program donasi yang Anda inginkan</span>
+                        <h2>SALURKAN DONASIMU DISINI!</h2>
                     </div>
                 </div>
             </div>

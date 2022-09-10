@@ -45,16 +45,3 @@ Route::get('/donasi/{program}', [PembayaranController::class, 'index'])->name('d
 Route::post('/donasi/pembayaran', [PembayaranController::class, 'bayar']);
 Route::post('/donasi/pembayaran/simpan', [PembayaranController::class, 'store']);
 Route::get('/donasi/caramembayar/{pemasukan}', [PembayaranController::class, 'caramembayar']);
-Route::get('/send-mail', function () {
-
-    $details = [
-        'nama_program' => Program::where('id_program', 1)->first()->nama_program,
-        'pemasukan' => 100000
-    ];
-
-    dispatch(new DonasiJob($details))->delay(now()->addSecond(20));
-    // return view('emails.myTestMail', $details);
-
-
-    dd("Email is Sent.");
-});
