@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $programs   = Program::with('kategori')->get();
+        $programs   = Program::with('kategori')->take(9)->latest()->get();
         $kategoris  = Kategori::all();
         return view('user.index', compact('programs', 'kategoris'));
     }

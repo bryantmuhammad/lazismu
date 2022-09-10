@@ -4,8 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
-class KategoriRequest extends FormRequest
+class PengeluaranRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,7 @@ class KategoriRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->hasPermissionTo('crud data master');
+        return auth()->user()->hasPermissionTo('transaksi');
     }
 
     /**
@@ -25,7 +24,8 @@ class KategoriRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_kategori' => 'required'
+            'nama_pengeluaran'  => 'required',
+            'id_pemasukan'      => 'required'
         ];
     }
 }

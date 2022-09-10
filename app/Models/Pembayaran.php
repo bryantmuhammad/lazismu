@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Pemasukan;
 
 class Pembayaran extends Model
 {
@@ -19,5 +20,10 @@ class Pembayaran extends Model
     public function getJenisBankAttribute($value)
     {
         return ucfirst($value);
+    }
+
+    public function pemasukan()
+    {
+        return $this->belongsTo(Pemasukan::class, 'id_pemasukan');
     }
 }

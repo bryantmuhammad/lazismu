@@ -1,7 +1,7 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{ route('admin.dashboard') }}">Bakpia 716 Annur</a>
+            <a href="{{ route('admin.dashboard') }}">Lazismu</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="{{ route('admin.dashboard') }}">PSB</a>
@@ -34,16 +34,25 @@
             @endcan
 
             @can('crud data master')
-                <li class="menu-header">Data Master</li>
-                <li
-                    class="nav-item dropdown {{ Request::is('admin/user*', 'admin/program*', 'admin/kategori*') ? 'active' : '' }}">
+                <li class="menu-header">Penerimaan Dan Pengeluaran</li>
+                <li class="nav-item dropdown {{ Request::is('admin/pemasukan*', 'admin/donasi*') ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Penerimaan</span></a>
                     <ul class="dropdown-menu">
-                        <li class="{{ Request::is('admin/user*') ? 'active' : '' }}"><a class="nav-link"
-                                href="{{ route('user.index') }}">Pemasukan &
-                                Pengeluaran</a>
+                        <li class="{{ Request::is('admin/donasi*') ? 'active' : '' }}"><a class="nav-link"
+                                href="{{ route('admin.donasi') }}">Donasi Masuk</a>
                         </li>
-
+                        <li class="{{ Request::is('admin/pemasukan*') ? 'active' : '' }}"><a class="nav-link"
+                                href="{{ route('admin.pemasukan') }}">Penerimaan </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown {{ Request::is('admin/pemasukan*', 'admin/donasi*') ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Pengeluaran</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="{{ Request::is('admin/pemasukan*') ? 'active' : '' }}"><a class="nav-link"
+                                href="{{ route('admin.pemasukan') }}">Pengeluaran </a>
+                        </li>
+                    </ul>
                 </li>
             @endcan
 

@@ -55,7 +55,8 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label>Keterangan</label>
-                                                <input id="keterangan" name="keterangan" type="hidden" name="content">
+                                                <input id="keterangan" name="keterangan" type="hidden" name="content"
+                                                    value="{{ old('keterangan') }}">
                                                 <trix-editor input="keterangan"></trix-editor>
                                             </div>
                                         </div>

@@ -121,6 +121,10 @@ function editKategori(idkategori) {
     });
 }
 
+function tambahPengeluaran(idpemasukan) {
+    $("#id_pemasukan").val(idpemasukan);
+}
+
 function previewImage() {
     const image = document.getElementById("image");
     const imgPreview = document.querySelector(".img-preview");

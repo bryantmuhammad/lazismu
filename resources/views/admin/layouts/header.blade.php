@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="_token" content="{{ csrf_token() }}" />
-    <title>Bakpia 716 Annur Yogyakarta </title>
+    <title>Lazismu</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -49,6 +49,12 @@
     <style>
         trix-toolbar [data-trix-button-group="file-tools"] {
             display: none;
+        }
+
+
+        table.table-custom.dataTable td {
+            /* border-bottom-width: 0.5px !important; */
+            border: 0.1px solid rgb(182, 181, 181);
         }
     </style>
 </head>

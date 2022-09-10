@@ -79,7 +79,7 @@
                                 <span><img src="/user/img/icon/calendar.png" alt=""> 16 February 2020</span>
                                 <span>{{ $program->kategori->nama_kategori }}</span>
                                 <h5 class="text-titik">{{ $program->nama_program }}</h5>
-                                <a href="{{ route('program.detail', $program->id_program) }}">Read More</a>
+                                <a href="{{ route('program.detail', $program->id_program) }}">Baca Lebih Lanjut</a>
                             </div>
                         </div>
                     </div>

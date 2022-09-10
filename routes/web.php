@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProgramController;
@@ -9,9 +8,9 @@ use App\Http\Controllers\User\PembayaranController;
 use App\Http\Controllers\User\UserController as user;
 use App\Http\Controllers\Admin\UserController as admin;
 use App\Http\Controllers\Admin\AuthController as authadmin;
-use App\Models\Program;
-use App\Jobs\DonasiJob;
-use App\Models\Pembayaran;
+use App\Http\Controllers\Admin\PemasukanController;
+use App\Http\Controllers\Admin\PengeluaranController;
+use App\Models\Pemasukan;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +44,9 @@ Route::get('/donasi/{program}', [PembayaranController::class, 'index'])->name('d
 Route::post('/donasi/pembayaran', [PembayaranController::class, 'bayar']);
 Route::post('/donasi/pembayaran/simpan', [PembayaranController::class, 'store']);
 Route::get('/donasi/caramembayar/{pemasukan}', [PembayaranController::class, 'caramembayar']);
+
+Route::middleware(['permission:transaksi'])->group(function () {
+    Route::get('/admin/donasi', [PemasukanController::class, 'index'])->name('admin.donasi');
+    Route::post('/pengeluaran/store', [PengeluaranController::class, 'store'])->name('pengeluaran.store');
+    Route::get('/admin/pemasukan', [PemasukanController::class, 'pemasukan'])->name('admin.pemasukan');
+});

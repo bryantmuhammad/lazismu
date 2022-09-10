@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Program;
 use App\Models\Pembayaran;
+use App\Models\Pengeluaran;
 
 class Pemasukan extends Model
 {
@@ -23,5 +24,10 @@ class Pemasukan extends Model
     public function pembayaran()
     {
         return $this->hasOne(Pembayaran::class, 'id_pemasukan');
+    }
+
+    public function pengeluaran()
+    {
+        return $this->hasOne(Pengeluaran::class, 'id_pemasukan');
     }
 }
