@@ -30,7 +30,8 @@ class PemasukanController extends Controller
             ['program.nama_program', 'asc'],
             ['created_at', 'asc'],
         ]);
+        $total = $pemasukans->sum('jumlah_pemasukan');
 
-        return view('admin.pemasukan.index', compact('pemasukans'));
+        return view('admin.pemasukan.index', compact('pemasukans', 'total'));
     }
 }

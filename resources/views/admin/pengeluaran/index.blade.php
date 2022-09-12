@@ -4,10 +4,10 @@
 
         <section class="section">
             <div class="section-header">
-                <h1>Penerimaan</h1>
+                <h1>Pengeluaran</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="index.php">Dashboard</a></div>
-                    <div class="breadcrumb-item">Penerimaan</div>
+                    <div class="breadcrumb-item">Pengeluaran</div>
                 </div>
             </div>
 
@@ -42,18 +42,20 @@
                                                         {{ $pemasukan->created_at->isoFormat('D MMMM Y') }}</td>
                                                     <td class="text-center" rowspan="2">
                                                         {{ $pemasukan->program->nama_program }}</td>
+
                                                     <td class="text-left">
-                                                        {{ $pemasukan->nama_donatur . ' - ' . $pemasukan->pembayaran->jenis_pembayaran . ' - ' . $pemasukan->pembayaran->jenis_bank }}
-                                                    </td>
-                                                    <td class="text-center">@currency($pemasukan->jumlah_pemasukan)</td>
-                                                    <td class="text-center">-</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-left" style="padding-left: 80px;">
                                                         {{ $pemasukan->pengeluaran->nama_pengeluaran }}
                                                     </td>
                                                     <td class="text-center">-</td>
                                                     <td class="text-center">@currency($pemasukan->jumlah_pemasukan)</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left" style="padding-left: 80px;">
+                                                        {{ $pemasukan->nama_donatur . ' - ' . $pemasukan->pembayaran->jenis_pembayaran . ' - ' . $pemasukan->pembayaran->jenis_bank }}
+                                                    </td>
+                                                    <td class="text-center">@currency($pemasukan->jumlah_pemasukan)</td>
+                                                    <td class="text-center">-</td>
                                                 </tr>
                                             @endforeach
                                             <tr>

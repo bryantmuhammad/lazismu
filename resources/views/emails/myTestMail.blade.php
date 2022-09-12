@@ -113,7 +113,6 @@
 
                             <td>
                                 Tanggal: {{ now() }}<br />
-                                Due: February 1, 2015
                             </td>
                         </tr>
                     </table>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PengeluaranRequest;
+use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
 use Illuminate\Http\Request;
 
@@ -16,17 +17,14 @@ class PengeluaranController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $pemasukans = Pemasukan::with('pengeluaran', 'program', 'pembayaran')->has('pengeluaran')->get()->sortBy(
+            ['program.nama_program', 'asc'],
+            ['created_at', 'asc']
+        );
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $total = $pemasukans->sum('jumlah_pemasukan');
+
+        return view('admin.pengeluaran.index', compact('pemasukans', 'total'));
     }
 
     /**
@@ -39,50 +37,5 @@ class PengeluaranController extends Controller
     {
         Pengeluaran::create($request->all());
         return redirect()->route('admin.donasi')->with('success', 'Pengeluaran berhasil ditambahkan');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Pengeluaran  $pengeluaran
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pengeluaran $pengeluaran)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pengeluaran  $pengeluaran
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pengeluaran $pengeluaran)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pengeluaran  $pengeluaran
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pengeluaran $pengeluaran)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Pengeluaran  $pengeluaran
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Pengeluaran $pengeluaran)
-    {
-        //
     }
 }

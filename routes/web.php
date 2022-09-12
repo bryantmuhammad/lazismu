@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\UserController as admin;
 use App\Http\Controllers\Admin\AuthController as authadmin;
 use App\Http\Controllers\Admin\PemasukanController;
 use App\Http\Controllers\Admin\PengeluaranController;
-use App\Models\Pemasukan;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +35,6 @@ Route::post('/admin/login', [authadmin::class, 'authenticate'])->name('admin.log
 route::resource('admin/user', admin::class)->middleware(['permission:crud data master'])->except(['edit']);
 route::resource('admin/kategori', KategoriController::class)->middleware(['permission:crud data master'])->except(['edit']);
 route::resource('admin/program', ProgramController::class)->middleware(['permission:crud data master'])->except(['edit']);
-route::resource('admin/program', ProgramController::class)->middleware(['permission:crud data master'])->except(['edit']);
-
-
 
 Route::get('program/{program}', [user::class, 'detail'])->name('program.detail');
 Route::get('/donasi/{program}', [PembayaranController::class, 'index'])->name('donasi');
@@ -49,4 +46,5 @@ Route::middleware(['permission:transaksi'])->group(function () {
     Route::get('/admin/donasi', [PemasukanController::class, 'index'])->name('admin.donasi');
     Route::post('/pengeluaran/store', [PengeluaranController::class, 'store'])->name('pengeluaran.store');
     Route::get('/admin/pemasukan', [PemasukanController::class, 'pemasukan'])->name('admin.pemasukan');
+    Route::get('/admin/pengeluaran', [PengeluaranController::class, 'index'])->name('admin.pengeluaran');
 });
