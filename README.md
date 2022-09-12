@@ -27,6 +27,10 @@ php artisan migrate:fresh --seed
 php artisan storage:link
 php artisan serve
 ```
+## Admin Login
+- admin@gmail.com       | admin
+- superadmin@gmail.com  | admin
+- pemilik@gmail.com     | pemilik
 
 ## Route Admin
 - /admin/login

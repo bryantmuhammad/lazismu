@@ -22,11 +22,11 @@ class DatabaseSeeder extends Seeder
 
     public function run()
     {
+        // \App\Models\User::factory(10)->create();
         Kategori::create(['nama_kategori' => 'Zakat']);
         Kategori::create(['nama_kategori' => 'Infaq']);
 
         $faker  = Faker::create('id_ID');
-        // \App\Models\User::factory(10)->create();
 
         $permissions = [
             'Admin' => [
