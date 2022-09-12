@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\PengeluaranController;
 
 Route::get('/', [user::class, 'index']);
 Route::get('/visimisi', [user::class, 'visimisi'])->name('user.visimisi');
+Route::get('/tentangkami', [user::class, 'tentangkami'])->name('user.tentangkami');
 Route::get('/program', [user::class, 'program']);
 Route::get('/program/kategori/{kategori}', [user::class, 'programByKategori']);
 

@@ -28,6 +28,9 @@ php artisan storage:link
 php artisan serve
 ```
 
+## Route Admin
+- /admin/login
+
 ## Web Ini Dibangun Menggunakan
 -  [Stisla](https://getstisla.com/).
 -  [Spatie Laravel](https://github.com/spatie/laravel-permission).

@@ -42,6 +42,11 @@ class UserController extends Controller
         return view('user.program.index', compact('kategoris', 'programs'));
     }
 
+    public function tentangkami()
+    {
+        return view('user.tentangkami.index');
+    }
+
     public function visimisi()
     {
         return view('user.visimisi.index');

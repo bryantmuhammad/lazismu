@@ -85,7 +85,8 @@
                             </li>
                             <li class="{{ Request::is('visimisi') ? 'active' : '' }}"><a
                                     href="{{ route('user.visimisi') }}">Visi & Misi</a></li>
-                            <li><a href="./contact.html">Tentang Kami</a></li>
+                            <li class="{{ Request::is('tentangkami') ? 'active' : '' }}"><a
+                                    href="{{ route('user.tentangkami') }}">Tentang Kami</a></li>
                         </ul>
                     </nav>
                 </div>
