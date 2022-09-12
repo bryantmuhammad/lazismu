@@ -85,7 +85,8 @@
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
                             </li> --}}
-                            <li><a href="./contact.html">Visi & Misi</a></li>
+                            <li class="{{ Request::is('visimisi') ? 'active' : '' }}"><a
+                                    href="{{ route('user.visimisi') }}">Visi & Misi</a></li>
                             <li><a href="./contact.html">Tentang Kami</a></li>
                         </ul>
                     </nav>

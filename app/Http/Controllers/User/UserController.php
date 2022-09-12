@@ -24,4 +24,9 @@ class UserController extends Controller
         $total = $donaturs->sum('jumlah_pemasukan');
         return view('user.program.detail', compact('program', 'donaturs', 'total'));
     }
+
+    public function visimisi()
+    {
+        return view('user.visimisi.index');
+    }
 }

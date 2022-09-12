@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\PengeluaranController;
 */
 
 Route::get('/', [user::class, 'index']);
+Route::get('/visimisi', [user::class, 'visimisi'])->name('user.visimisi');
 
 //Auth Route
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
