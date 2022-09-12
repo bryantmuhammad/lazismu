@@ -1,6 +1,6 @@
 <footer class="main-footer">
     <div class="footer-left">
-        Copyright &copy; 2022 <div class="bullet"></div> Design By Bakpia 716 Annur Yogyakarta
+        Copyright &copy; 2022 <div class="bullet"></div> Lazismu
     </div>
 </footer>
 </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Pemasukan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Program;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PemasukanController extends Controller
@@ -26,12 +27,17 @@ class PemasukanController extends Controller
 
     public function pemasukan()
     {
-        $pemasukans = Pemasukan::with('pembayaran', 'program', 'pengeluaran')->has('pengeluaran')->get()->sortBy([
-            ['program.nama_program', 'asc'],
-            ['created_at', 'asc'],
-        ]);
+        $pemasukans = Pemasukan::with('pembayaran', 'program', 'pengeluaran')
+            ->has('pengeluaran')
+            ->filter(request(['program', 'tanggalawal', 'tanggalakhir']))
+            ->get()
+            ->sortBy([
+                ['program.nama_program', 'asc'],
+                ['created_at', 'asc'],
+            ]);
         $total = $pemasukans->sum('jumlah_pemasukan');
+        $programs = Program::all();
 
-        return view('admin.pemasukan.index', compact('pemasukans', 'total'));
+        return view('admin.pemasukan.index', compact('pemasukans', 'total', 'programs'));
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\PengeluaranRequest;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
 use Illuminate\Http\Request;
+use App\Models\Program;
 
 class PengeluaranController extends Controller
 {
@@ -17,14 +18,19 @@ class PengeluaranController extends Controller
      */
     public function index()
     {
-        $pemasukans = Pemasukan::with('pengeluaran', 'program', 'pembayaran')->has('pengeluaran')->get()->sortBy(
-            ['program.nama_program', 'asc'],
-            ['created_at', 'asc']
-        );
+        $pemasukans = Pemasukan::with('pengeluaran', 'program', 'pembayaran')
+            ->has('pengeluaran')
+            ->filter(request(['program', 'tanggalawal', 'tanggalakhir']))
+            ->get()
+            ->sortBy(
+                ['program.nama_program', 'asc'],
+                ['created_at', 'asc']
+            );
 
-        $total = $pemasukans->sum('jumlah_pemasukan');
+        $total      = $pemasukans->sum('jumlah_pemasukan');
+        $programs   = Program::all();
 
-        return view('admin.pengeluaran.index', compact('pemasukans', 'total'));
+        return view('admin.pengeluaran.index', compact('pemasukans', 'total', 'programs'));
     }
 
     /**

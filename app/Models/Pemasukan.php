@@ -30,4 +30,27 @@ class Pemasukan extends Model
     {
         return $this->hasOne(Pengeluaran::class, 'id_pemasukan');
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        //NULL coalescing operator
+        $query->when($filters['tanggalawal'] ?? false, function ($query, $search) {
+
+            return $query->where(function ($query) use ($search) {
+                $query->where('created_at', '>=', $search . " 00:00:00");
+            });
+        });
+
+        $query->when($filters['tanggalakhir'] ?? false, function ($query, $search) {
+            return $query->where(function ($query) use ($search) {
+                $query->where('created_at', '<=', $search . " 23:59:59");
+            });
+        });
+
+        $query->when($filters['program'] ?? false, function ($query, $program) {
+            return $query->whereHas('program', function ($query) use ($program) {
+                $query->where('id_program', $program);
+            });
+        });
+    }
 }
