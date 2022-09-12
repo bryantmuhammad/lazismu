@@ -8,7 +8,7 @@
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lazismu</title>
+    <title>LAZISMU KANTOR LAYANAN UMBULHARJO</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
@@ -51,7 +51,7 @@
     <div class="offcanvas-menu-wrapper">
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__text">
-            <p>SALURKAN DONASIMU DISINI!</p>
+            <p>SALURKAN DONASIMU DI LAZISMU KANTOR LAYANAN UMBULHARJO!</p>
         </div>
     </div>
     <!-- Offcanvas Menu End -->
@@ -63,7 +63,7 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 text-center">
                         <div class="header__top__left">
-                            <p>SALURKAN DONASIMU DISINI!</p>
+                            <p>SALURKAN DONASIMU DI LAZISMU KANTOR LAYANAN UMBULHARJO!</p>
                         </div>
                     </div>
 
