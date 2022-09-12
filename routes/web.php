@@ -25,6 +25,8 @@ use App\Http\Controllers\Admin\PengeluaranController;
 
 Route::get('/', [user::class, 'index']);
 Route::get('/visimisi', [user::class, 'visimisi'])->name('user.visimisi');
+Route::get('/program', [user::class, 'program']);
+Route::get('/program/kategori/{kategori}', [user::class, 'programByKategori']);
 
 //Auth Route
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -37,7 +39,7 @@ route::resource('admin/user', admin::class)->middleware(['permission:crud data m
 route::resource('admin/kategori', KategoriController::class)->middleware(['permission:crud data master'])->except(['edit']);
 route::resource('admin/program', ProgramController::class)->middleware(['permission:crud data master'])->except(['edit']);
 
-Route::get('program/{program}', [user::class, 'detail'])->name('program.detail');
+Route::get('/program/{program}', [user::class, 'detail'])->name('program.detail');
 Route::get('/donasi/{program}', [PembayaranController::class, 'index'])->name('donasi');
 Route::post('/donasi/pembayaran', [PembayaranController::class, 'bayar']);
 Route::post('/donasi/pembayaran/simpan', [PembayaranController::class, 'store']);

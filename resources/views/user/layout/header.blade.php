@@ -32,6 +32,11 @@
             text-overflow: ellipsis;
             display: inline-block;
         }
+
+        .aktivkategori {
+            color: black !important;
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -76,15 +81,8 @@
                     <nav class="header__menu mobile-menu">
                         <ul>
                             <li class="{{ Request::is('/') ? 'active' : '' }}"><a href="/">Home</a></li>
-                            {{-- <li><a href="#">Program</a>
-                                <ul class="dropdown">
-                                    <li><a href="./about.html">About Us</a></li>
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li> --}}
+                            <li class="{{ Request::is('program') ? 'active' : '' }}"><a href="/program">Program</a>
+                            </li>
                             <li class="{{ Request::is('visimisi') ? 'active' : '' }}"><a
                                     href="{{ route('user.visimisi') }}">Visi & Misi</a></li>
                             <li><a href="./contact.html">Tentang Kami</a></li>

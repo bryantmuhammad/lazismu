@@ -25,6 +25,23 @@ class UserController extends Controller
         return view('user.program.detail', compact('program', 'donaturs', 'total'));
     }
 
+    public function program()
+    {
+        $kategoris = Kategori::all();
+        $programs = Program::with('pemasukan')->paginate(10);
+
+        return view('user.program.index', compact('kategoris', 'programs'));
+    }
+
+    public function programByKategori($idkategori)
+    {
+        $kategori   = Kategori::findOrFail($idkategori);
+        $kategoris  = Kategori::all();
+        $programs   = Program::with('pemasukan')->where('id_kategori', $idkategori)->paginate(10);
+
+        return view('user.program.index', compact('kategoris', 'programs'));
+    }
+
     public function visimisi()
     {
         return view('user.visimisi.index');
