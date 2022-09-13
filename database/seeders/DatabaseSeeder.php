@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Str;
 use App\Models\Kategori;
+use App\Models\Program;
 use Faker\Factory as Faker;
 
 class DatabaseSeeder extends Seeder
@@ -22,12 +23,19 @@ class DatabaseSeeder extends Seeder
 
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        Kategori::create(['nama_kategori' => 'Zakat']);
-        Kategori::create(['nama_kategori' => 'Infaq']);
+        $kategoris = ['Zakat', 'Infaq'];
+        foreach ($kategoris as $kategori) {
+            Kategori::factory()->has(Program::factory()->count(3))->create([
+                'nama_kategori' => $kategori
+            ]);
+        }
 
+        $this->permission_seeder();
+    }
+
+    public function permission_seeder()
+    {
         $faker  = Faker::create('id_ID');
-
         $permissions = [
             'Admin' => [
                 'crud data master',

@@ -124,9 +124,10 @@
                     <table>
                         <tr>
                             <td>
-                                LAZISMU<br />
-                                Selman<br />
-                                Yogyakarta
+                                LAZISMU KANTOR LAYANAN UMBULHARJO<br />
+                                Jl. Glagahsari No.136, Warungboto, <br />
+                                Kec. Umbulharjo, Kota Yogyakarta, <br />
+                                Daerah Istimewa Yogyakarta 55164
                             </td>
 
 
@@ -137,19 +138,16 @@
 
             <tr class="heading">
                 <td>Metode Pembayaran</td>
-
                 <td>Cara Membayar</td>
             </tr>
 
             <tr class="details">
                 <td>BRI</td>
-
                 <td><a href="{{ $details['link'] }}">Klik Disini</a></td>
             </tr>
 
             <tr class="heading">
                 <td>Program</td>
-
                 <td>Donasi</td>
             </tr>
 
