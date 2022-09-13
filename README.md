@@ -19,6 +19,8 @@ LAZISMU adalah lembaga zakat tingkat nasional yang berkhidmat dalam pemberdayaan
 - Set MIDTRANS_CLIENT_KEY=Your Key
 - Set MAIL_SETTING 
 
+## Catatan
+- JIKA INGIN MELAKUKAN SEED HAPUS FOTO DIDALAM FILE STORAGE AGAR TIDAK MENUMPUK
 
 ```powershell
 cp .env.example .env
