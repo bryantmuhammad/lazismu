@@ -22,6 +22,7 @@ LAZISMU adalah lembaga zakat tingkat nasional yang berkhidmat dalam pemberdayaan
 ## Catatan
 - JIKA INGIN MELAKUKAN SEED HAPUS FOTO DIDALAM FILE STORAGE AGAR TIDAK MENUMPUK
 
+## Command
 ```powershell
 cp .env.example .env
 php artisan generate:key
