@@ -7,13 +7,12 @@ use App\Http\Requests\PembayaranRequest;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use App\Models\Program;
-use Midtrans\Snap;
-use Midtrans\Config;
 use Illuminate\Support\Facades\DB;
 use App\Models\Pemasukan;
 use Exception;
 use App\Jobs\DonasiJob;
 use Illuminate\Support\Str;
+use App\Services\SnapServices;
 
 class PembayaranController extends Controller
 {
@@ -36,8 +35,8 @@ class PembayaranController extends Controller
             ], 404);
         }
 
-        $program = $program->first();
-        $idPemasukan = Str::random(10);
+        $program        = $program->first();
+        $idPemasukan    = Str::random(10);
         try {
             DB::transaction(function () use ($request, $idPemasukan) {
                 Pemasukan::create([
@@ -56,54 +55,8 @@ class PembayaranController extends Controller
             ], 404);
         }
 
-        $response =  $this->snap($request, $program, $idPemasukan);
-
-        return $response;
+        return (new SnapServices)->snap($request, $program, $idPemasukan);
     }
-
-    public function snap($request, $program, $idPemasukan)
-    {
-        Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-        $item_details = [[
-            'id'        => $program->id_program,
-            'price'     => $request->jumlah_pemasukan,
-            'quantity'  => 1,
-            'name'      => substr($program->nama_program, 0, 15)
-        ]];
-        $transaction_details = array(
-            'order_id'      => $idPemasukan,
-            'gross_amount'  => $request->jumlah_pemasukan,
-        );
-        $customer_details = array(
-            'first_name'       => $request->nama_donatur,
-            'email'            => $request->email,
-
-        );
-        // Fill SNAP API parameter
-        $params = array(
-            'transaction_details'   => $transaction_details,
-            'customer_details'      => $customer_details,
-            'item_details'          => $item_details,
-        );
-
-        try {
-
-            // Get Snap Payment Page URL
-            $snapToken = Snap::getSnapToken($params);
-
-            return response()->json([
-                'token'  => $snapToken,
-                'status' => 200
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'pesan'  => 'Pembayaran gagal dilakukan',
-                'status' => 404
-            ], 404);
-        }
-    }
-
-
 
     /**
      * Store a newly created resource in storage.
@@ -130,7 +83,7 @@ class PembayaranController extends Controller
             ], 424);
         }
 
-        $program = Program::select('nama_program', 'id_program')->where('id_program', $request->id_program)->first();
+        $program = Program::select('nama_program')->where('id_program', $request->id_program)->first();
         dispatch(new DonasiJob([
             'email'         => $request->email,
             'pemasukan'     => $request->jumlah_pemasukan,

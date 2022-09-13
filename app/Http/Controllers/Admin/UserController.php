@@ -35,6 +35,7 @@ class UserController extends Controller
     public function create()
     {
         $roles  = Role::get();
+
         return view('admin.admin.create', compact('roles'));
     }
 
@@ -48,6 +49,7 @@ class UserController extends Controller
     {
         $user =  User::create($request->all());
         $user->assignRole($request->role);
+
         return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan');
     }
 
@@ -82,7 +84,6 @@ class UserController extends Controller
         if ($request->password) $user->password = Hash::make($request->password);
         $user->save();
         $user->syncRoles($request->role);
-
 
         return redirect()->route('user.index')->with('success', 'User berhasil dirubah');
     }

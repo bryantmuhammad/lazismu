@@ -31,6 +31,9 @@ $("#submitdonasi").click(function (e) {
                         form.append("payment", JSON.stringify(result));
                         pembayaran(form);
                     },
+                    onClose: function (result) {
+                        deletePemasukan(res.order_id);
+                    },
                 });
             }
         },
@@ -93,6 +96,16 @@ function pembayaran(form) {
                         "/donasi/caramembayar/" + response.id_pemasukan;
                 });
             },
+        },
+    });
+}
+
+function deletePemasukan(idpemasukan) {
+    $.ajax({
+        method: "DELETE",
+        url: `/pemasukan/${idpemasukan}`,
+        data: {
+            _token: csrftoken,
         },
     });
 }

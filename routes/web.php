@@ -11,7 +11,6 @@ use App\Http\Controllers\Admin\AuthController as authadmin;
 use App\Http\Controllers\Admin\PemasukanController;
 use App\Http\Controllers\Admin\PengeluaranController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,7 +44,7 @@ Route::get('/donasi/{program}', [PembayaranController::class, 'index'])->name('d
 Route::post('/donasi/pembayaran', [PembayaranController::class, 'bayar']);
 Route::post('/donasi/pembayaran/simpan', [PembayaranController::class, 'store']);
 Route::get('/donasi/caramembayar/{pemasukan}', [PembayaranController::class, 'caramembayar']);
-
+Route::delete('/pemasukan/{pemasukan}', [PemasukanController::class, 'destroy']);
 Route::middleware(['permission:transaksi'])->group(function () {
     Route::get('/admin/donasi', [PemasukanController::class, 'index'])->name('admin.donasi');
     Route::post('/pengeluaran/store', [PengeluaranController::class, 'store'])->name('pengeluaran.store');

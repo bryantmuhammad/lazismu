@@ -6,6 +6,7 @@ use App\Models\Pemasukan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Program;
+use Facade\FlareClient\View;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PemasukanController extends Controller
@@ -39,5 +40,12 @@ class PemasukanController extends Controller
         $programs = Program::all();
 
         return view('admin.pemasukan.index', compact('pemasukans', 'total', 'programs'));
+    }
+
+    public function destroy(Pemasukan $pemasukan): void
+    {
+        if (!$pemasukan->status) {
+            Pemasukan::destroy($pemasukan->id_pemasukan);
+        }
     }
 }
