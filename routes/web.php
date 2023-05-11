@@ -45,9 +45,15 @@ Route::post('/donasi/pembayaran', [PembayaranController::class, 'bayar']);
 Route::post('/donasi/pembayaran/simpan', [PembayaranController::class, 'store']);
 Route::get('/donasi/caramembayar/{pemasukan}', [PembayaranController::class, 'caramembayar']);
 Route::delete('/pemasukan/{pemasukan}', [PemasukanController::class, 'destroy']);
+
+
+
 Route::middleware(['permission:transaksi'])->group(function () {
     Route::get('/admin/donasi', [PemasukanController::class, 'index'])->name('admin.donasi');
     Route::post('/pengeluaran/store', [PengeluaranController::class, 'store'])->name('pengeluaran.store');
     Route::get('/admin/pemasukan', [PemasukanController::class, 'pemasukan'])->name('admin.pemasukan');
     Route::get('/admin/pengeluaran', [PengeluaranController::class, 'index'])->name('admin.pengeluaran');
+
+    Route::get('/admin/pemasukan/tambah', [PemasukanController::class, 'create'])->name('admin.tambah.pemasukan');
+    Route::post('/admin/pemasukan/store', [PemasukanController::class, 'store'])->name('admin.store.pemasukan');
 });

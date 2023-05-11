@@ -16,9 +16,9 @@ class CreatePemasukansTable extends Migration
         Schema::create('pemasukans', function (Blueprint $table) {
             $table->string('id_pemasukan', 10)->primary();
             $table->foreignId('id_program')->references('id_program')->on('programs')->onDelete('cascade');
-            $table->string('nama_donatur', 35);
-            $table->string('catatan', 50);
-            $table->decimal('jumlah_pemasukan');
+            $table->string('nama_donatur', 50);
+            $table->string('catatan', 200)->nullable();
+            $table->double('jumlah_pemasukan');
             $table->string('email', 30);
             $table->smallInteger('status');
             $table->timestamps();
